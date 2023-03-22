@@ -29,6 +29,7 @@
 /* Task 1.2.1 Start of your solution */
 @compute_sum_task_1_2_1_plan
 +!compute_sum(X,Y,Sum) : true <-
+    Sum = X + Y
     .print("Implement Task 1.2.1").
 /* Task 1.2.1 End of your solution */
 
