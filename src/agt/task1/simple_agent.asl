@@ -2,17 +2,19 @@
 
 /* Initial rules */
 /* Task 1.2.3 Start of your solution */
+even(X) :- X mod 2 == 0.
+odd(X) :- not even(X).
 /* Task 1.2.3 End of your solution */
 
 /* Initial goals */
 !start_sum(4,2). // uncomment for Task 1.2.1
 !start_sum(4,-2). // uncomment for Task 1.2.1
-//!start_division(4,2). // uncomment for Task 1.2.2
-//!start_division(4,2.5). // uncomment for Task 1.2.2
-//!start_division(4,0). // uncomment for Task 1.2.2
-//!start_even_or_odd(4). // uncomment for Task 1.2.3
-//!start_even_or_odd(5). // uncomment for Task 1.2.3
-//!start_list_generation(0,4). // uncomment for Task 1.2.4
+!start_division(4,2). // uncomment for Task 1.2.2
+!start_division(4,2.5). // uncomment for Task 1.2.2
+!start_division(4,0). // uncomment for Task 1.2.2
+!start_even_or_odd(4). // uncomment for Task 1.2.3
+!start_even_or_odd(5). // uncomment for Task 1.2.3
+!start_list_generation(0,4). // uncomment for Task 1.2.4
 //!print_list([0,1,2,3,4]). // uncomment for an example of handling a list with recursion
 
 /* 
@@ -29,8 +31,8 @@
 /* Task 1.2.1 Start of your solution */
 @compute_sum_task_1_2_1_plan
 +!compute_sum(X,Y,Sum) : true <-
-    Sum = X + Y
-    .print("Implement Task 1.2.1").
+    Sum = X + Y.
+
 /* Task 1.2.1 End of your solution */
 
 @start_division_task_1_2_2_plan
@@ -39,6 +41,14 @@
     .print(Dividend, "/", Divisor, "=", Quotient).
 
 /* Task 1.2.2 Start of your solution */
+
+@div_by_zero_plan
++!compute_division(Dividend, Divisor, _) : Divisor == 0 <-
+    .print("Division not possible").
+
+@div_plan
++!compute_division(Dividend, Divisor, Quotient) : (Divisor > 0) | (Divisor < 0) <-
+    Quotient = Dividend / Divisor.
 /* Task 1.2.2 End of your solution */
 
 /* 
@@ -94,6 +104,16 @@
 
 /* Task 1.2.4 Start of your solution */
 // You are allowed to use a triggering event other than the one provided 
+@add_element_to_list_plan
++!compute_list(Start, End, Current, List): Start < End <-
+    .union(Current, [Start], X);
+    !compute_list((Start + 1), End, X, List).
+
+@end_compute_list_recursion_plan
++!compute_list(Start, End, Current, List): Start == End <-
+    .union(Current, [Start], X);
+    List = X.
+
 /* Task 1.2.4 End of your solution */
 
 /* 
